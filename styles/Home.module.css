@@ -1,0 +1,24 @@
+.introduce {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.introduce p {
+  font-size: 50pt;
+  font-weight: bold;
+}
+
+.login {
+
+}
+
+.accent_blue {
+  color: #03a9f4;
+}
+
+.accent_green {
+  color: #3cbe69;
+}
