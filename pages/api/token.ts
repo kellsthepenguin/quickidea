@@ -10,6 +10,7 @@ export default function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'GET') get(req, res)
+  else res.json({ error: 'bad req' })
 }
 
 async function get(

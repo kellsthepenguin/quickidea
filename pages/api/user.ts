@@ -11,6 +11,7 @@ export default function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') post(req, res)
+  else res.json({ error: 'bad req' })
 }
 
 async function post(
