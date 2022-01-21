@@ -20,7 +20,7 @@ async function post(
 ) {
   const { name, mail, pw }: User = req.body
 
-  if (mail && pw) {
+  if (mail && pw && name) {
     if (pw.length <= 5) return res.json({ error: 'password is too short' })
 
     const isMailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)
