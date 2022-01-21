@@ -49,6 +49,6 @@ async function post(
 
     res.json({ success: true })
   } else {
-    res.json({ error: 'mail or pw is not provided' })
+    res.json({ error: 'mail or pw or name is not provided' })
   }
 }
