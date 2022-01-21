@@ -27,7 +27,8 @@ async function get(
 
     if (!user) return res.json({ error: 'that user is not exists' })
     
-    jwt.sign({ id: user.id }, await readFile('../../private.key'))
+    const token = jwt.sign({ id: user.id }, await readFile('../../private.key'))
+    res.json({ token })
   } else {
     res.json({ error: 'mail or password not provided' })
   }
