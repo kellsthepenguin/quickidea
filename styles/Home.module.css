@@ -11,8 +11,13 @@
   font-weight: bold;
 }
 
-.login {
+.get_started {
+  font-weight: bold;
+}
 
+.login {
+  float: right;
+  padding: 30px 50px;
 }
 
 .accent_blue {
