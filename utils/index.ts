@@ -1,11 +1,7 @@
+import { randomBytes } from 'crypto'
+
 function generateRandomString() {
-  let str = ''
-
-  for (let step = 0; step < 50; step++) {
-    str += String.fromCharCode(Math.floor(Math.random() * 65534 + 1))
-  }
-
-  return str
+  return randomBytes(128).toString('utf-8').replaceAll('\u0000', '')
 }
 
 export { generateRandomString }
