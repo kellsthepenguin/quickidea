@@ -1,7 +1,6 @@
-import { prisma } from '../../global/'
+import { prisma, key } from '../../global/'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
-import { readFile } from 'fs/promises'
 
 import User from '../../types/User'
 
@@ -28,7 +27,7 @@ async function get(
 
     if (!user) return res.json({ error: 'that user is not exists' })
     
-    const token = jwt.sign({ id: user.id }, await readFile('../../private.key'))
+    const token = jwt.sign({ id: user.id }, key)
     res.json({ token })
   } else {
     res.json({ error: 'mail or password not provided' })
