@@ -5,7 +5,6 @@ import styles from '../styles/Login.module.css'
 
 const Login: NextPage = () => {
   function login() {
-    console.log('abcd')
     const mail = (document.getElementById('mail') as HTMLInputElement).value
     const pw = (document.getElementById('pw') as HTMLInputElement).value
 
