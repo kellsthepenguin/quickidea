@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { prisma, key } from '../../global'
 
-interface DisplayableTodo {
+interface DisplayableIdea {
   name: string,
   description: string,
   id?: number,
@@ -40,19 +40,19 @@ async function get(
   res: NextApiResponse,
   payload: JwtPayload
 ) {
-  const todos = await prisma.todo.findMany({
+  const ideas = await prisma.idea.findMany({
     where: {
       ownerId: payload.id
     }
   })
-  const displayableTodos = todos as DisplayableTodo[]
+  const displayableIdeas = ideas as DisplayableIdea[]
 
-  displayableTodos.map((todo) => {
-    delete todo.id
-    delete todo.ownerId
+  displayableIdeas.map((idea) => {
+    delete idea.id
+    delete idea.ownerId
   })
 
-  res.json(displayableTodos)
+  res.json(displayableIdeas)
 }
 
 async function post(
@@ -63,7 +63,7 @@ async function post(
   const { name, description } = req.body
 
   if (name && description) {
-    await prisma.todo.create({
+    await prisma.idea.create({
       data: {
         name,
         description,
