@@ -5,6 +5,7 @@ import { prisma, key } from '../../global'
 interface DisplayableIdea {
   name: string,
   description: string,
+  date: Date,
   id?: number,
   ownerId?: number
 }

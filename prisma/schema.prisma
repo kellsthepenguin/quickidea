@@ -23,4 +23,5 @@ model Idea {
   description String
   id Int @id @default(autoincrement())
   ownerId Int
+  date DateTime @default(now())
 }
