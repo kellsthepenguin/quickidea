@@ -17,3 +17,10 @@ model User {
   pw String
   salt String
 }
+
+model Todo {
+  name String
+  description String
+  id Int @id @default(autoincrement())
+  ownerId Int
+}
