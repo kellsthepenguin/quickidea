@@ -9,11 +9,11 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET') get(req, res)
+  if (req.method === 'POST') post(req, res) // FUCK
   else res.json({ error: 'bad req' })
 }
 
-async function get(
+async function post(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
