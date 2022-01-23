@@ -1,7 +1,8 @@
-import { prisma, key } from '../../global/'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
+import { sha256 } from 'js-sha256'
 
+import { prisma, key } from '../../global/'
 import User from '../../types/User'
 
 export default function handler(
@@ -27,8 +28,12 @@ async function get(
 
     if (!user) return res.json({ error: 'that user is not exists' })
     
-    const token = jwt.sign({ id: user.id }, key)
-    res.json({ token })
+    if (sha256(pw + user.salt) === user.pw) {
+      const token = jwt.sign({ id: user.id }, key)
+      res.json({ token })
+    } else {
+      res.json({ error: 'password is not correct' })
+    }
   } else {
     res.json({ error: 'mail or password not provided' })
   }
