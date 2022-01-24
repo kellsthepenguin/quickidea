@@ -7,7 +7,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET') get(req, res)
+  if (req.method === 'POST') get(req, res) // FUCKFUCKFUCKFUCKFUKCUFKCUFKCUFKCUFKCU
   else res.json({ error: 'bad req' })
 }
 
