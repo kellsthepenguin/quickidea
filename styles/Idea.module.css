@@ -1,0 +1,14 @@
+.container {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.date {
+  color: rgb(170, 170, 170);
+}
+
+.title {
+  font-size: 15pt;
+  font-weight: bold;
+}

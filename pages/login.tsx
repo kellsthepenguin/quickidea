@@ -21,7 +21,8 @@ const Login: NextPage = () => {
         toast.error('Login Failed. please check your mail or password.')
       } else {
         toast.success('Success!')
-        // TODO: Redirect to Idea List
+        localStorage.setItem('token', token!)
+        location.href = '/ideas'
       }
     })
   }

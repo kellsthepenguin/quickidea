@@ -1,0 +1,22 @@
+.title {
+  display: inline-block;
+  padding-left: 2rem;
+}
+
+.ideas {
+  padding: 0rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.header {
+  height: 100px;
+}
+
+.addButton {
+  position: absolute;
+  right: 25px;
+  margin-top: -6px;
+  line-height: 100px;
+}
