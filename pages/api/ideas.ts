@@ -15,10 +15,10 @@ function runMiddleware (
   res: NextApiResponse,
   cb: (payload: JwtPayload) => any
 ) {
-  const { token } = req.body
+  const { token } = req.query
 
   if (!token) return res.json({ error: 'token is not provided' })
-  jwt.verify(token, key, (err: VerifyErrors | null, token?: JwtPayload | string) => {
+  jwt.verify(token as string, key, (err: VerifyErrors | null, token?: JwtPayload | string) => {
     if (err) return res.json({ error: 'an error occured during checking token' })
 
     cb(token as JwtPayload)

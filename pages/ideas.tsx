@@ -3,9 +3,25 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 
+import useSWR from 'swr'
+
 import Idea from '../components/Idea'
+import IdeaType from '../types/Idea'
+import { checkJWT } from '../utils'
 
 import styles from '../styles/Ideas.module.css'
+
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
+function useIdeas(token: string) {
+  const { data, error } = useSWR(`/api/ideas?token=${token}`, fetcher)
+
+  return {
+    ideas: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
 
 const Ideas: NextPage = () => {
   const [token, setToken] = useState('')
@@ -15,20 +31,35 @@ const Ideas: NextPage = () => {
 
     if (!token) {
       location.href = '/login'
-    } else {
-      fetch('/api/check', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      }).then((res) => res.json()).then(({ valid }) => {
-        if (valid) {
-          setToken(token)
-        } else {
-          localStorage.removeItem('token')
-          location.href = '/login'
-        }
-      })
+      return
     }
+    
+    checkJWT(token).then(isJWTValid => {
+      if (isJWTValid) {
+        setToken(token)
+      } else {
+        localStorage.removeItem('token')
+        location.href = '/login'
+      }
+    })
+  })
+
+  const { ideas, isLoading, isError } = useIdeas(token)
+
+  if (isLoading) return <div>Loading...</div>
+  if (isError || ideas.error) return <div>An error occurred. please try again later.</div>
+
+  const ideaComponents: JSX.Element[] = []
+
+  ideas.forEach((idea: IdeaType, i: number) => {
+    ideaComponents.push(
+      <Idea
+        name={idea.name}
+        description={idea.description}
+        date={new Date(Date.parse(idea.date))}
+        key={i}
+      />
+    )
   })
 
   return (
@@ -40,9 +71,7 @@ const Ideas: NextPage = () => {
         </a>
       </div>  
       <div className={styles.ideas}>
-        <Idea name='샌즈' description='아시는구나' date={new Date(Date.now())}/>
-        <Idea name='샌즈' description='아시는구나' date={new Date(Date.now())}/>
-        <Idea name='샌즈' description='아시는구나' date={new Date(Date.now())}/>
+        {ideaComponents}
       </div>
     </div>
   )
